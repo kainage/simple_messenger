@@ -55,7 +55,7 @@ Send messages by passing in a sender, receiver and some content:
 ```ruby
 bob = User.create
 alice = User.create
-Message.create(sender: bob, receiver: alice, content: 'Hello')
+bob.create_message!(receiver: alice, content: 'Hello')
 # => <Message id: 1 sender_id: 1 sender_type 'User' ... content: "Hello" viewed: false>
 
 bob.messages.count
@@ -88,6 +88,24 @@ alice.new_messages.count
 alice.conversation_with(bob)
 # => <Message id: 1 ... >
 ```
+The following constructors are available:
+
+```ruby
+bob.build_message
+bob.new_message
+bob.create_message
+bob.create_message!
+```
+
+Due to the nature of the design you would have to type:
+
+```ruby
+bob.sent_messages.build ...
+```
+
+As typing the ```bob.messages``` returns a specialized relation and is not
+created through a ```has_many``` relationship:
+
 
 ## Contributing
 

@@ -1,4 +1,6 @@
 module ActsAsMessenger
+  class NotInvolved < StandardError; end
+
   module MessageAdditions
     def self.included(feature_model)
       feature_model.belongs_to :sender, polymorphic: true
@@ -17,18 +19,29 @@ module ActsAsMessenger
        }
 
       # Find a conversations between 2 models by joining all_for on both.
-      feature_model.scope :conversation_between, ->(models) {
+      feature_model.scope :between, ->(models) {
         feature_model.all_for(models.first).all_for(models.last)
       }
 
-      feature_model.validates_presence_of :content, :sender_id, :sender_type,
+      feature_model.validates_presence_of :sender_id, :sender_type,
                                           :receiver_id, :receiver_type
 
       # Check if the message has been read by the recipient for highlighting
       # in a conversation. Without the check for the user being the recipient,
       # the messages that she sent would return true.
-      def read?(model)
-        model == receiver && viewed?
+      def read?(obj)
+        obj == receiver && viewed?
+      end
+
+      def opposite_of(obj)
+        case obj
+        when sender
+          receiver
+        when receiver
+          sender
+        else
+          raise ActsAsMessenger::NotInvolved
+        end
       end
     end
   end

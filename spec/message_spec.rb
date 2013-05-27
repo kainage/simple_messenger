@@ -31,7 +31,6 @@ describe Message do
   specify { @message.should validate_presence_of(:sender_type) }
   specify { @message.should validate_presence_of(:receiver_id) }
   specify { @message.should validate_presence_of(:receiver_type) }
-  specify { @message.should validate_presence_of(:content) }
 
   it "should give you all messaged wheather you are the seder or recipient" do
     Message.all_for(@user1).count.should eql 1
@@ -44,13 +43,13 @@ describe Message do
   end
 
   it "should give all the messages between you and another user" do
-    Message.conversation_between([@user1, @user2]).count.should eql 1
+    Message.between([@user1, @user2]).count.should eql 1
 
     Message.create!(sender: @user1, receiver: @user2, content: 'Hello')
-    Message.conversation_between([@user1, @user2]).count.should eql 2
+    Message.between([@user1, @user2]).count.should eql 2
 
     Message.create!(msg(@user1))
-    Message.conversation_between([@user1, @user2]).count.should eql 2
+    Message.between([@user1, @user2]).count.should eql 2
   end
 
   specify { @message.read?(@user1).should be_false }
@@ -60,5 +59,14 @@ describe Message do
     @message.viewed = true
     @message.read?(@user1).should be_false
     @message.read?(@user2).should be_true
+  end
+
+  it "should return the opposite model" do
+    @message.opposite_of(@user1).should eq @user2
+    @message.opposite_of(@user2).should eq @user1
+  end
+
+  it "should raise execption if passed model is neither sender or receiver" do
+    expect { @message.opposite_of(User.create!) }.to raise_error ActsAsMessenger::NotInvolved
   end
 end

@@ -64,12 +64,12 @@ describe ActiveRecord::Acts::MessengerAdditions do
   end
 
   it "should give all the messages between 2 models" do
-    @user1.conversation_with(@user2).count.should eql 1
+    @user1.messages_with(@user2).count.should eql 1
 
     Message.create!(sender: @user1, receiver: @user2, content: 'Hello')
-    @user1.conversation_with(@user2).count.should eql 2
+    @user1.messages_with(@user2).count.should eql 2
 
     Message.create!(msg(@user1)) # Different user
-    @user1.conversation_with(@user2).count.should eql 2
+    @user1.messages_with(@user2).count.should eql 2
   end
 end

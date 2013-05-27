@@ -70,7 +70,7 @@ bob.received_messages.count
 bob.new_messages.count
 # => 0
 
-bob.conversation_with(alice)
+bob.messages_with(alice)
 # => <Message id: 1 ... >
 
 alice.messages.count
@@ -85,7 +85,7 @@ alice.received_messages.count
 alice.new_messages.count
 # => 1
 
-alice.conversation_with(bob)
+alice.messages_with(bob)
 # => <Message id: 1 ... >
 ```
 The following constructors are available:

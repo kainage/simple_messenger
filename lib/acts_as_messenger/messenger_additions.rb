@@ -30,8 +30,8 @@ module ActiveRecord
           received_messages.unviewed
         end
 
-        def conversation_with(other_messenger)
-          Message.conversation_between([self, other_messenger])
+        def messages_with(other_messenger)
+          Message.between([self, other_messenger])
         end
 
         # Build helper instead of typing User.sent_messages.build

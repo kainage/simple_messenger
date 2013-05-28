@@ -43,7 +43,7 @@ $ rake db:migrate
 This will be generated and placed in your app/models folder:
 
 ```ruby
-Class Message
+class Message
   include ActsAsMessenger::MessageAdditions
 end
 ```

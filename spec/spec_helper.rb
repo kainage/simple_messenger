@@ -8,7 +8,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 load(File.dirname(__FILE__) + '/extra/schema.rb')
-load(File.dirname(__FILE__) + '/extra/model.rb')
+load(File.dirname(__FILE__) + '/extra/models.rb')
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

@@ -2,6 +2,8 @@
 
 Add messaging functionality to active record models.
 
+**Requires ruby >= 2.0.0**
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,10 +24,10 @@ Or install it yourself as:
 $ gem install acts_as_messenger
 ```
 
-Run the generator to create the migration file:
+Run the generator to create the migration file and message model:
 
 ```
-$ rails g features
+$ rails g messages
 ```
 
 Migrate the database:
@@ -35,6 +37,18 @@ $ rake db:migrate
 ```
 
 ## Usage
+
+### Message Model
+
+This will be generated and placed in your app/models folder:
+
+```ruby
+Class Message
+  include ActsAsMessenger::MessageAdditions
+end
+```
+
+You can add any custom functionality to the Message model here.
 
 ### Messenger Model
 
@@ -88,6 +102,9 @@ alice.new_messages.count
 alice.messages_with(bob)
 # => <Message id: 1 ... >
 ```
+
+### Messenger Helpers
+
 The following constructors are available:
 
 ```ruby
@@ -106,6 +123,52 @@ bob.sent_messages.build ...
 As typing the ```bob.messages``` returns a specialized relation and is not
 created through a ```has_many``` relationship:
 
+### Message Helpers
+
+**Class Methods**
+
+To get all the member ids in a collection of messages use the following:
+
+```ruby
+Message.uniq_member_ids_for(messages)
+```
+
+You can optionally omit one or more member from the collection:
+
+```ruby
+Message.uniq_member_ids_for(messages, remove: current_user)
+```
+This could be useful for rendering a list of users which the current_user has
+messaged.
+
+```remove``` can be an id, array of ids, ActiveRecord object, collection of
+ActiveRecord objects, or anything that ```respond_to?(:id)```
+
+**Instance Methods**
+
+Check to see if the message has been read:
+
+```ruby
+msg = Message.create(sender: bob, receiver: alice, content: 'Hello')
+# => <Message ... viewed: false>
+msg.read?(bob) # true as bob is the sender
+# => true
+msg.read?(alice)
+# => false
+```
+
+Find the opposite member in the message:
+
+```ruby
+msg = Message.create(sender: bob, receiver: alice, content: 'Hello')
+# => <Message ... >
+msg.member_who_is_not(bob)
+# => <User ... username: 'alice'>
+msg.member_who_is_not(alice)
+# => <User ... username: 'bob'>
+msg.member_who_is_not(jimmy)
+# => ActsAsMessenger::NotInvolved error
+```
 
 ## Contributing
 

@@ -35,23 +35,23 @@ module ActiveRecord
         end
 
         # Build helper instead of typing User.sent_messages.build
-        def build_message
-          sent_messages.build
-        end
-
-        # Create helper instead of typing User.sent_messages.create
-        def create_message
-          sent_message.create
-        end
-
-        # Create! helper instead of typing User.sent_messages.create!
-        def create_message!
-          sent_message.create!
+        def build_message(*args)
+          sent_messages.build(*args)
         end
 
         # New helper instead of typing User.sent_messages.new
-        def new_message
-          sent_message.new
+        def new_message(*args)
+          sent_messages.new(*args)
+        end
+
+        # Create helper instead of typing User.sent_messages.create
+        def create_message(*args)
+          sent_messages.create(*args)
+        end
+
+        # Create! helper instead of typing User.sent_messages.create!
+        def create_message!(*args)
+          sent_messages.create!(*args)
         end
       end
     end

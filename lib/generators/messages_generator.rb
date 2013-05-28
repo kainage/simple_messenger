@@ -10,6 +10,7 @@ class MessagesGenerator < Rails::Generators::Base
   end
 
   def create_acts_as_messenger_files
+    copy_file "message.rb", "app/models/message.rb"
     migration_template "create_messages.rb", "db/migrate/create_messages.rb"
   end
 end

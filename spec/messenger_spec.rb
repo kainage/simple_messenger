@@ -72,4 +72,18 @@ describe ActiveRecord::Acts::MessengerAdditions do
     Message.create!(msg(@user1)) # Different user
     @user1.messages_with(@user2).count.should eql 2
   end
+
+  context "build helpers" do
+    specify { expect(@user1.build_message).to be_kind_of(Message) }
+    specify { expect(@user1.build_message.new_record?).to be_true }
+
+    specify { expect(@user1.new_message).to be_kind_of(Message) }
+    specify { expect(@user1.new_message.new_record?).to be_true }
+
+    specify { expect(@user1.create_message(msg @user1)).to be_kind_of(Message) }
+    specify { expect(@user1.create_message(msg @user1).new_record?).to be_false }
+
+    specify { expect(@user1.create_message!(msg @user1)).to be_kind_of(Message) }
+    specify { expect(@user1.create_message!(msg @user1).new_record?).to be_false }
+  end
 end

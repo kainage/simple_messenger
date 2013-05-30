@@ -1,4 +1,4 @@
-module ActsAsMessenger
+module SimpleMessenger
   class NotInvolved < StandardError; end
 
   module MessageAdditions
@@ -62,7 +62,7 @@ module ActsAsMessenger
         when receiver
           sender
         else
-          raise ActsAsMessenger::NotInvolved
+          raise SimpleMessenger::NotInvolved
         end
       end
     end

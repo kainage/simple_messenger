@@ -106,7 +106,7 @@ describe Message do
     end
 
     it "should raise execption if passed model is neither sender or receiver" do
-      expect { @message.member_who_is_not(User.create!) }.to raise_error ActsAsMessenger::NotInvolved
+      expect { @message.member_who_is_not(User.create!) }.to raise_error SimpleMessenger::NotInvolved
     end
   end
 end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
-  acts_as_messenger
+  simple_messenger
 end
 
 class Message < ActiveRecord::Base
-  include ActsAsMessenger::MessageAdditions
+  include SimpleMessenger::MessageAdditions
 end

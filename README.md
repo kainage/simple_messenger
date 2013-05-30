@@ -1,6 +1,6 @@
-# Acts As Messenger
+# Simple Messenger
 
-Add messaging functionality to active record models.
+Add simple messaging functionality to active record models.
 
 **Requires ruby >= 2.0.0**
 
@@ -9,7 +9,7 @@ Add messaging functionality to active record models.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'acts_as_messenger'
+gem 'simple_messenger'
 ```
 
 And then execute:
@@ -21,7 +21,7 @@ $ bundle
 Or install it yourself as:
 
 ```
-$ gem install acts_as_messenger
+$ gem install simple_messenger
 ```
 
 Run the generator to create the migration file and message model:
@@ -44,7 +44,7 @@ This will be generated and placed in your app/models folder:
 
 ```ruby
 class Message
-  include ActsAsMessenger::MessageAdditions
+  include SimpleMessenger::MessageAdditions
 end
 ```
 
@@ -56,11 +56,11 @@ Add the appropriate line to the top of your activerecord model:
 
 ```ruby
 class User
-  acts_as_messenger
+  simple_messenger
 end
 ```
 
-The class is not restricted to User, it can be any class you add ```acts_as_messenger``` to.
+The class is not restricted to User, it can be any class you add ```simple_messenger``` to.
 
 ### Creating Messages
 
@@ -167,7 +167,7 @@ msg.member_who_is_not(bob)
 msg.member_who_is_not(alice)
 # => <User ... username: 'bob'>
 msg.member_who_is_not(jimmy)
-# => ActsAsMessenger::NotInvolved error
+# => SimpleMessenger::NotInvolved error
 ```
 
 ## Contributing

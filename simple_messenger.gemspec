@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'acts_as_messenger/version'
+require 'simple_messenger/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "acts_as_messenger"
-  spec.version       = ActsAsMessenger::VERSION
+  spec.name          = "simple_messenger"
+  spec.version       = SimpleMessenger::VERSION
   spec.authors       = ["Kainage"]
   spec.email         = ["kainage@gmail.com"]
-  spec.description   = %q{ Add basic messaging functionality between ActiveRecord models}
-  spec.summary       = %q{Add basic messaging functionality between ActiveRecord models}
-  spec.homepage      = "https://github.com/kainage/acts_as_messenger"
+  spec.description   = %q{Add a simple messaging functionality between ActiveRecord models}
+  spec.summary       = %q{Add a simple messaging functionality between ActiveRecord models}
+  spec.homepage      = "https://github.com/kainage/simple_messenger"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

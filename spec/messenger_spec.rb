@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ActiveRecord::Acts::MessengerAdditions do
+describe SimpleMessenger::MessengerAdditions do
   # puts ActiveRecord::Base.connection.execute("PRAGMA table_info(messages);")
   # Helper method to make messages quickly
   def msg(uzer, recip = false, read = false)

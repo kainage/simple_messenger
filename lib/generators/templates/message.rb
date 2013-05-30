@@ -1,3 +1,3 @@
 class Message < ActiveRecord::Base
-  include ActsAsMessenger::MessageAdditions
+  include SimpleMessenger::MessageAdditions
 end

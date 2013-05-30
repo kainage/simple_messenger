@@ -1,4 +1,4 @@
-require 'acts_as_messenger'
+require 'simple_messenger'
 require 'rspec/autorun'
 require 'shoulda-matchers'
 

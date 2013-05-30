@@ -11,12 +11,12 @@ module SimpleMessenger
       # Using ARel find all the messages where the model is sender or receiver.
       feature_model.scope :all_for, ->(model) {
         feature_model.where(
-             ((feature_model.arel_table[:sender_id].eq model.id).
-          and(feature_model.arel_table[:sender_type].eq model.class.to_s)).
-           or((feature_model.arel_table[:receiver_id].eq model.id).
-          and(feature_model.arel_table[:receiver_type].eq model.class.to_s))
-         )
-       }
+          ((feature_model.arel_table[:sender_id].eq model.id).
+              and(feature_model.arel_table[:sender_type].eq model.class.to_s)).
+            or((feature_model.arel_table[:receiver_id].eq model.id).
+              and(feature_model.arel_table[:receiver_type].eq model.class.to_s))
+        )
+      }
 
       # Find a conversations between 2 models by joining all_for on both.
       feature_model.scope :between, ->(models) {
@@ -24,7 +24,7 @@ module SimpleMessenger
       }
 
       feature_model.validates_presence_of :sender_id, :sender_type,
-                                          :receiver_id, :receiver_type
+        :receiver_id, :receiver_type
 
       # When given an array of messages, this will return a list of all the ids of the
       # models that have interacted together. Useful for creating a list of objects
@@ -50,7 +50,7 @@ module SimpleMessenger
       # in a conversation. Without the check for the user being the recipient,
       # the messages that she sent would return true.
       def read?(obj)
-        obj == receiver && viewed?
+        obj != receiver || viewed?
       end
 
       # This will return the other member in the communication then the one

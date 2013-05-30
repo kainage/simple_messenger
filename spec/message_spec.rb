@@ -91,12 +91,12 @@ describe Message do
   end
 
   context "instance methods" do
-    specify { @message.read?(@user1).should be_false }
+    specify { @message.read?(@user1).should be_true } # Message is sent by @user1
     specify { @message.read?(@user2).should be_false }
 
     it "should act as viewed when applicable" do
       @message.viewed = true
-      @message.read?(@user1).should be_false
+      @message.read?(@user1).should be_true
       @message.read?(@user2).should be_true
     end
 

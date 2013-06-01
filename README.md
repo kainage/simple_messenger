@@ -78,6 +78,12 @@ bob.messages.count
 bob.sent_messages.count
 # => 1
 
+bob.sent_messages_to(alice).count
+# => 1
+
+bob.sent_messages_to(jimmy).count
+# => 0
+
 bob.received_messages.count
 # => 0
 
@@ -95,6 +101,12 @@ alice.sent_messages.count
 
 alice.received_messages.count
 # => 1
+
+alice.received_messages_from(bob).count
+# => 1
+
+alice.received_messages_from(jimmy).count
+# => 0
 
 alice.new_messages.count
 # => 1

@@ -33,6 +33,14 @@ module SimpleMessenger
         Message.between([self, other_messenger])
       end
 
+      def received_messages_from(messenger)
+        self.messages_with(messenger).where(receiver: self)
+      end
+
+      def sent_messages_to(messenger)
+        self.messages_with(messenger).where(sender: self)
+      end
+
       # Build helper instead of typing User.sent_messages.build
       def build_message(*args)
         sent_messages.build(*args)

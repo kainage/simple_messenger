@@ -1,3 +1,8 @@
+## v0.0.3
+
+* New methods 'received_messages_from(model) and sent_messages_to(model) added
+  to messenger.
+
 ## v0.0.2
 
 * bugs

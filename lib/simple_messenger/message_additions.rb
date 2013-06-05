@@ -2,28 +2,28 @@ module SimpleMessenger
   class NotInvolved < StandardError; end
 
   module MessageAdditions
-    def self.included(feature_model)
-      feature_model.belongs_to :sender, polymorphic: true
-      feature_model.belongs_to :receiver, polymorphic: true
+    def self.included(message_model)
+      message_model.belongs_to :sender, polymorphic: true
+      message_model.belongs_to :receiver, polymorphic: true
 
-      feature_model.scope :unviewed, -> { feature_model.where(viewed: false) }
+      message_model.scope :unviewed, -> { message_model.where(viewed: false) }
 
       # Using ARel find all the messages where the model is sender or receiver.
-      feature_model.scope :all_for, ->(model) {
-        feature_model.where(
-          ((feature_model.arel_table[:sender_id].eq model.id).
-              and(feature_model.arel_table[:sender_type].eq model.class.to_s)).
-            or((feature_model.arel_table[:receiver_id].eq model.id).
-              and(feature_model.arel_table[:receiver_type].eq model.class.to_s))
+      message_model.scope :all_for, ->(model) {
+        message_model.where(
+          ((message_model.arel_table[:sender_id].eq model.id).
+              and(message_model.arel_table[:sender_type].eq model.class.to_s)).
+            or((message_model.arel_table[:receiver_id].eq model.id).
+              and(message_model.arel_table[:receiver_type].eq model.class.to_s))
         )
       }
 
       # Find a conversations between 2 models by joining all_for on both.
-      feature_model.scope :between, ->(models) {
-        feature_model.all_for(models.first).all_for(models.last)
+      message_model.scope :between, ->(models) {
+        message_model.all_for(models.first).all_for(models.last)
       }
 
-      feature_model.validates_presence_of :sender_id, :sender_type,
+      message_model.validates_presence_of :sender_id, :sender_type,
         :receiver_id, :receiver_type
 
       # When given an array of messages, this will return a list of all the ids of the
@@ -33,7 +33,7 @@ module SimpleMessenger
       # remove is optional and takes a fixnum, object or array of either and will remove
       # it's id from the list. Useful for sending a current_user in to get a unique
       # list of other users which they have communicated with.
-      def feature_model.uniq_member_ids_for(msgs, remove:nil)
+      def message_model.uniq_member_ids_for(msgs, remove: nil)
         ids = msgs.map { |m| [m.receiver_id, m.sender_id] }.flatten.uniq
         ids -= case
         when remove.respond_to?(:first)

@@ -1,5 +1,7 @@
 # Simple Messenger
 
+[![Build Status](https://travis-ci.org/kainage/simple_messenger.png)](https://travis-ci.org/kainage/simple_messenger)
+
 Add simple messaging functionality to active record models.
 
 **Requires ruby >= 2.0.0**

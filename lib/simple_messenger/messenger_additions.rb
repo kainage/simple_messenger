@@ -21,8 +21,11 @@ module SimpleMessenger
     end
 
     module InstanceMethods
-      def messages
-        Message.all_for(self)
+      def messages(sender_type: nil, receiver_type: nil)
+        msgs = Message.all_for(self)
+        msgs = msgs.where(sender_type: sender_type.to_s.camelize) if sender_type
+        msgs = msgs.where(receiver_type: receiver_type.to_s.camelize) if receiver_type
+        msgs
       end
 
       def new_messages

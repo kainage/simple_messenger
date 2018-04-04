@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/kainage/simple_messenger.png)](https://travis-ci.org/kainage/simple_messenger)
 
-Add simple messaging functionality to active record models.
+Add messaging functionality to active record models.
 
 **Requires ruby >= 2.0.0**
 
@@ -42,7 +42,7 @@ $ rake db:migrate
 
 ### Message Model
 
-This will be generated and placed in your app/models folder:
+The following model will be generated and placed in your app/models folder:
 
 ```ruby
 class Message
@@ -50,11 +50,11 @@ class Message
 end
 ```
 
-You can add any custom functionality to the Message model here.
+You can add custom functionality to the Message model here.
 
 ### Messenger Model
 
-Add the appropriate line to the top of your activerecord model:
+Add `simple_messenger` to the top of your activerecord model:
 
 ```ruby
 class User
@@ -128,7 +128,7 @@ bob.create_message
 bob.create_message!
 ```
 
-Due to the nature of the design you would have to type:
+Due to the design of the library you would have to type:
 
 ```ruby
 bob.sent_messages.build ...
